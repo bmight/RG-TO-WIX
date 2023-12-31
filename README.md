@@ -47,4 +47,4 @@ yarn install
 1. Build Code (`yarn build`)
 2. ZIP `dist` and `node_modules` folder
 3. Upload to S3
-5. Deploy CloudFormation using `cloudformation.yaml`
+5. [Deploy CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) using `cloudformation.yaml`
