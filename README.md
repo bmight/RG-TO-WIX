@@ -1,32 +1,32 @@
 ## Software Prerequisites
 
-NodeJS v18.15.0+
-Yarn 1.22+
-git 2.40+
+- NodeJS v18.15.0+
+- Yarn 1.22+
+- git 2.40+
 
 ## Account Prerequisites 
 
-RescueGroups Username/Password
-RescueGroups Account Number
-[WIX Token](https://dev.wix.com/docs/rest/articles/getting-started/api-keys)
-[WIX Collection](https://support.wix.com/en/article/cms-formerly-content-manager-creating-a-collection) (with the following columns)
+- RescueGroups Username/Password
+- RescueGroups Account Number
+- [WIX Token](https://dev.wix.com/docs/rest/articles/getting-started/api-keys)
+- [WIX Collection](https://support.wix.com/en/article/cms-formerly-content-manager-creating-a-collection) (with the following columns)
 
-- animalId
-- breed
-- description
-- descriptionNoHtml
-- exactBirthdate
-- generalAge
-- location
-- locationPublic
-- name
-- needsAFoster
-- picture1
-- picture1Url
-- relativeAge
-- rescueId
-- sex
-- gallery   
+  - animalId
+  - breed
+  - description
+  - descriptionNoHtml
+  - exactBirthdate
+  - generalAge
+  - location
+  - locationPublic
+  - name
+  - needsAFoster
+  - picture1
+  - picture1Url
+  - relativeAge
+  - rescueId
+  - sex
+  - gallery   
 
 ## Install
 
