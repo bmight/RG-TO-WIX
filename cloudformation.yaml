@@ -1,0 +1,71 @@
+# ------------------------------------------------------------------------------------
+# RescueGroups to WIX Collection Lambda 
+# Version: 1
+# Authors: Brandon Might (@bmight) 
+# ------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Front-End Application CI/CD CloudFormation Template'
+
+Parameters:
+  Username:
+    Description: 'RescueGroup Username'
+    Type: String
+    MinLength: 1
+  Password:
+    Type: String
+    Description: 'RescueGroup Password'
+    MinLength: 1
+  AccountId:
+    Type: String
+    Description: 'RescueGroup Account ID'
+    MinValue: 1
+  Collection:
+    Type: String
+    Description: 'WIX Collection Name'
+    MinValue: 1
+  Token:
+    Type: String
+    Description: 'WIX API Token'
+  CodeS3Bucket: 
+    Type: String
+    Description: 'Bucket name for zipped code'
+  CodeS3Key: 
+    Type: String
+    Description: 'S3 Key for zipped code'
+
+Resources:
+  RGToWixLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument: Json
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Description: "Basic Lambda Role"
+
+  RGToWixLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: 
+        Code
+      Description: "RescueGroup to WIX Collection"
+      Environment: 
+        Variables:
+          username: !Ref Username
+          password: !Ref Username
+          accountId: !Ref AccountId
+          collection: !Ref Collection
+          token: !Ref Token
+      FunctionName: 'RescueGroupsToWix'
+      MemorySize: 512
+      Handler: dist/handler.handler
+      PackageType: "Zip"
+      Role: !Ref RGToWixLambdaRole
+      Runtime: "nodejs18.x"
+      Timeout: 15

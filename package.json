@@ -1,0 +1,16 @@
+{
+  "name": "adoptabledogs",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Brandon Might",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "18.15.3",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "start": "yarn build && node .",
+    "lint": "ts-standard"
+  }
+}
