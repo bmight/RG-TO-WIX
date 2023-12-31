@@ -39,7 +39,7 @@ yarn install
 ## Manual Usage
 
 ```
-  yarn run -u {RG_USERNAME} -p {RG_PASSWORD} -a {RG-ACCOUNTID} -t {WIX_TOKEN} -c {WIX_COLLECTION}
+  yarn start -u {RG_USERNAME} -p {RG_PASSWORD} -a {RG-ACCOUNTID} -t {WIX_TOKEN} -c {WIX_COLLECTION}
 ```
 
 ## AWS Lambda Deployment
