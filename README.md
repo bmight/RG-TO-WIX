@@ -44,7 +44,8 @@ yarn install
 
 ## AWS Lambda Deployment
 
+1. Install Code
 1. Build Code (`yarn build`)
-2. ZIP `dist` and `node_modules` folder
-3. Upload to S3
-5. [Deploy CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) using `cloudformation.yaml`
+1. ZIP `dist` and `node_modules` folder
+1. Upload ZIP to S3 Bucket
+1. [Deploy CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) using `cloudformation.yaml`

@@ -19,26 +19,29 @@ Parameters:
   AccountId:
     Type: String
     Description: 'RescueGroup Account ID'
-    MinValue: 1
+    MinLength: 1
   Collection:
     Type: String
     Description: 'WIX Collection Name'
-    MinValue: 1
+    MinLength: 1
   Token:
     Type: String
     Description: 'WIX API Token'
+    MinLength: 1
   CodeS3Bucket: 
     Type: String
     Description: 'Bucket name for zipped code'
+    MinLength: 1
   CodeS3Key: 
     Type: String
     Description: 'S3 Key for zipped code'
+    MinLength: 1
 
 Resources:
   RGToWixLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument: Json
+      AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
@@ -47,13 +50,16 @@ Resources:
                 - lambda.amazonaws.com
             Action:
               - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam:::role/lambda_basic_execution
       Description: "Basic Lambda Role"
 
   RGToWixLambda:
     Type: AWS::Lambda::Function
     Properties:
       Code: 
-        Code
+        S3Bucket: !Ref CodeS3Bucket
+        S3Key : !Ref CodeS3Key
       Description: "RescueGroup to WIX Collection"
       Environment: 
         Variables:
@@ -66,6 +72,17 @@ Resources:
       MemorySize: 512
       Handler: dist/handler.handler
       PackageType: "Zip"
-      Role: !Ref RGToWixLambdaRole
+      Role: !GetAtt RGToWixLambdaRole.Arn
       Runtime: "nodejs18.x"
       Timeout: 15
+
+  RGToWixEventTrigger:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: "Event Trigger for Lambda"
+      EventBusName: default
+      Name: "RGToWixTrigger"
+      ScheduleExpression: cron(0 * * * ? *)
+      Targets: 
+        - Id: lambda
+          Arn: !GetAtt RGToWixLambda.Arn
