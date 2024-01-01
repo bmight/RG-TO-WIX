@@ -26,12 +26,10 @@ const init = async () => {
       type: 'string',
       short: 't'
     },
-  };
-  //@ts-ignore
+  } as const
   const { values } = parseArgs({ options, allowPositionals: true });
   const { username, password, token, collection, accountId } = values
 
-  console.log('Running RG to Wix..')
   wixToRg({
     username: String(username),
     password: String(password),
