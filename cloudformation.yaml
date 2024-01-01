@@ -50,8 +50,18 @@ Resources:
                 - lambda.amazonaws.com
             Action:
               - 'sts:AssumeRole'
-      ManagedPolicyArns:
-        - arn:aws:iam:::role/lambda_basic_execution
+      Policies:
+        - PolicyName: cloudwatch
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - lambda:invokeFunctionUrl
+                Resource: '*'
       Description: "Basic Lambda Role"
 
   RGToWixLambda:
@@ -64,7 +74,7 @@ Resources:
       Environment: 
         Variables:
           username: !Ref Username
-          password: !Ref Username
+          password: !Ref Password
           accountId: !Ref AccountId
           collection: !Ref Collection
           token: !Ref Token
@@ -86,3 +96,31 @@ Resources:
       Targets: 
         - Id: lambda
           Arn: !GetAtt RGToWixLambda.Arn
+
+  RGToWixLambdaURL:
+    Type: AWS::Lambda::Url
+    Properties:
+      AuthType: NONE
+      TargetFunctionArn: !GetAtt RGToWixLambda.Arn
+
+  PermissionForURLInvoke:
+     Type: AWS::Lambda::Permission
+     Properties:
+       FunctionName: !Ref RGToWixLambda
+       FunctionUrlAuthType: 'NONE'
+       Action: lambda:InvokeFunctionUrl
+       Principal: '*'
+
+  EventPermissions:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref RGToWixLambda
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceAccount: !Ref 'AWS::AccountId'
+      SourceArn: !GetAtt RGToWixEventTrigger.Arn
+
+Outputs:
+  LambdaFunctionURL:
+    Description: URL to Invoke RGToWixLambda
+    Value: !GetAtt RGToWixLambdaURL.FunctionUrl
