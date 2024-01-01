@@ -1,3 +1,10 @@
+# RescueGroups to Wix
+
+Instead of using the default RescueGroups iFrame, which isn't mobile friendly,
+this tool uses RescueGroups and WIX API to copy available pets from RescueGroups
+to a Wix data collection. From there you can use dynamic pages to display the
+pet data on your Wix website.
+
 ## Software Prerequisites
 
 - NodeJS v18.15.0+
