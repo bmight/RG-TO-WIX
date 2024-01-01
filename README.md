@@ -44,8 +44,14 @@ yarn install
 
 ## AWS Lambda Deployment
 
-1. Install Code
+1. Install Code (see install instructions above)
 1. Build Code (`yarn build`)
 1. ZIP `dist` and `node_modules` folder
 1. Upload ZIP to S3 Bucket
 1. [Deploy CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) using `cloudformation.yaml`
+
+## Manual Execution of Lambda
+
+After the deployment of the cloudformation template, the stack outputs tab will
+have a `LambdaFunctionURL`. This URL is a public url that will execute the RG to
+Wix Lambda on every GET request.
